@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, FlatList } from 'react-native';
-import styles from '../styles/styles'; // Предполагаем, что стили в отдельном файле
+import React from 'react';
+import { View, TouchableOpacity, Text } from 'react-native';
+import styles from '../styles/styles_profile'; // Стили для профиля
 
-function UserScreen({ navigation }) {
+const UserScreen = ({ navigation }) => {
     return (
       <View style={styles.container}>
-        <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('User')}>
+        <View style={styles.footerContainer}>
+          <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('User')}>
             <Text style={styles.buttonText}>Profile</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Tasks')}>
@@ -15,7 +15,6 @@ function UserScreen({ navigation }) {
         </View>
       </View>
     );
-  }
+}
 
-
-  export default UserScreen;
+export default UserScreen;

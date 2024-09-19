@@ -4,90 +4,90 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    justifyContent: 'flex-start',
     backgroundColor: '#fff',
   },
+
   text: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
-    textAlign: 'center',
   },
-  taskWindowList: {
-    flex: 1,
-    marginTop: 10,
-  },
+
   taskWindow: {
-    marginBottom: 20,
     padding: 10,
-    borderWidth: 1,
+    marginBottom: 15,
     borderColor: '#ccc',
-    borderRadius: 5,
-    backgroundColor: '#f9f9f9',
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: '#f1f1f1',
+    position: 'relative', // Добавлено для позиционирования кнопки удаления окна
   },
+
   taskWindowTime: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
   },
-  taskList: {
-    marginTop: 10,
-  },
-  taskContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 10,
-    marginVertical: 5,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    backgroundColor: '#f1f1f1',
-  },
-  taskTime: {
-    fontSize: 16,
-    color: '#888',
-  },
-  taskText: {
-    fontSize: 16,
-    color: '#333',
-  },
-  addButton: {
-    backgroundColor: '#4CAF50',
-    padding: 15,
-    borderRadius: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-    width: 50,
-    height: 50,
-    marginVertical: 20,
-  },
-  addButtonText: {
-    fontSize: 24,
-    color: '#fff',
-  },
+
   addWindowButton: {
-    backgroundColor: '#4CAF50',
-    padding: 15,
-    borderRadius: 10,
-    justifyContent: 'center',
+    backgroundColor: '#3498db',
+    padding: 10,
+    borderRadius: 5,
     alignItems: 'center',
-    alignSelf: 'center',
-    marginVertical: 20,
+    marginVertical: 20, // Отступы для кнопки добавления окна
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
-    width: '100%',
-    paddingBottom: 20,
-  },
-  buttonText: {
-    color: '#fff',
+
+  addButtonText: {
+    color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-    textAlign: 'center',
+  },
+
+  footerContainer: {
+    marginTop: 'auto', // Кнопки всегда снизу
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
+  },
+
+  deleteWindowButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  deleteButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+
+  newTaskContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+
+  input: {
+    flex: 1,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 8,
+    marginLeft: 10, // Отступ от кнопки "+"
+  },
+
+  addTaskButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#3498db',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

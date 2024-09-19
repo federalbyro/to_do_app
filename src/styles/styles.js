@@ -1,43 +1,34 @@
-// styles.js
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end', // Выравнивание по вертикали (снизу)
+    alignItems: 'center', // Выравнивание по горизонтали
+    backgroundColor: '#f5f5f5', // Светлый фон для улучшенной видимости
   },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    textAlign: 'center',
-    flexGrow: 1,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
+
+  footer: {
+    position: 'absolute',
+    bottom: 20, // Расположим на 20 пикселей выше от низа
     width: '100%',
-    paddingBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
+
   button: {
-    flex: 1,
-    backgroundColor: 'blue',
-    padding: 10,
-    marginHorizontal: 5,
+    backgroundColor: '#2980b9',
+    padding: 15,
     borderRadius: 5,
-    borderColor: '#000',
-    borderWidth: 2,
+    width: 120,
     alignItems: 'center',
   },
+
   buttonText: {
-    color: '#fff',
+    color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-    textAlign: 'center',
   },
 });
+
 
