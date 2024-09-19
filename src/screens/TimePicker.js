@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, Button, Platform, Text, TouchableOpacity } from 'react-native';
-import DatePicker from 'react-datepicker';  // Для web
+import { View, Text, TouchableOpacity, Platform } from 'react-native';
+import DatePicker from 'react-datepicker'; // Для web
 import "react-datepicker/dist/react-datepicker.css"; // CSS для веб
-import styles from '../styles/timepicker_style'; // Стили для TimePicker
+import styles from '../styles/timepicker_style'; // Подключаем стили
+import { auth } from '../FireBaseConfig'; // Firebase Auth
+import { saveTasks } from '../firebase/firestore'; // Сохранение в Firebase
 
 const TimePickerScreen = ({ route, navigation }) => {
   const { windowId, taskWindows, setTaskWindows } = route.params;
@@ -11,16 +13,23 @@ const TimePickerScreen = ({ route, navigation }) => {
   const saveTime = () => {
     const formattedTime = `${selectedDate.toLocaleDateString()} ${selectedDate.getHours()}:00`;
 
-    // Обновляем время в соответствующем окне задач
-    setTaskWindows(taskWindows.map(window => {
+    const updatedWindows = taskWindows.map(window => {
       if (window.id === windowId) {
         return {
           ...window,
-          time: formattedTime, // Обновляем время в нужном формате
+          time: formattedTime,
         };
       }
       return window;
-    }));
+    });
+
+    setTaskWindows(updatedWindows);
+
+    // Сохранение обновленных задач в Firebase
+    const user = auth.currentUser;
+    if (user) {
+      saveTasks(updatedWindows, user);
+    }
 
     navigation.goBack(); // Возврат на предыдущий экран
   };
@@ -34,12 +43,12 @@ const TimePickerScreen = ({ route, navigation }) => {
           selected={selectedDate}
           onChange={(date) => setSelectedDate(date)}
           showTimeSelect
+          minDate={new Date()} // Ограничение на выбор прошлой даты
           dateFormat="Pp"  // Формат даты и времени
-          className="date-picker-input" // Добавляем стили для веб
+          className="date-picker-input" // Класс для стилей веб
         />
       ) : (
-        <Text>Нативный компонент для мобильных устройств</Text>
-        // Здесь можно оставить выбор времени для мобильных версий через другие библиотеки
+        <Text>Для мобильных устройств можно использовать другой компонент</Text>
       )}
 
       <TouchableOpacity style={styles.saveButton} onPress={saveTime}>
@@ -50,4 +59,7 @@ const TimePickerScreen = ({ route, navigation }) => {
 };
 
 export default TimePickerScreen;
+
+
+
 

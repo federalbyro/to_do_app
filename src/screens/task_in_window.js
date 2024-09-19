@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, TextInput, Alert } from 'react-native';
 import styles from '../styles/style_task_in_window';
 import DeleteWindowButton from '../components/DeleteWindowButton'; // Компонент для удаления окна
+import { auth } from '../FireBaseConfig'; // Импорт Firebase auth
+import { saveTasks } from '../firebase/firestore'; // Импорт функции сохранения задач в Firestore
 
 const TaskInWindow = ({ taskWindows, setTaskWindows, windowId, navigation }) => {
   const [newTaskText, setNewTaskText] = useState('');
   const window = taskWindows.find(window => window.id === windowId);
 
   const addTask = () => {
+    if (window.tasks.length >= 5) {
+      Alert.alert('Лимит задач', 'Максимальное количество задач в окне — 5. Оплатите, чтобы добавить больше задач.');
+      return; // Прекращаем добавление задач, если лимит превышен
+    }
+
     if (!newTaskText.trim()) return;  // Пропускаем, если текст пустой или состоит только из пробелов
 
     const newTask = {
@@ -16,7 +23,7 @@ const TaskInWindow = ({ taskWindows, setTaskWindows, windowId, navigation }) => 
       status: 'New',
     };
 
-    setTaskWindows(taskWindows.map(window => {
+    const updatedWindows = taskWindows.map(window => {
       if (window.id === windowId) {
         return {
           ...window,
@@ -24,13 +31,20 @@ const TaskInWindow = ({ taskWindows, setTaskWindows, windowId, navigation }) => 
         };
       }
       return window;
-    }));
+    });
 
+    setTaskWindows(updatedWindows);
     setNewTaskText('');  // Очищаем поле ввода после добавления
+
+    // Сохранение задач в Firebase
+    const user = auth.currentUser;
+    if (user) {
+      saveTasks(updatedWindows, user); // Сохраняем обновленные задачи в Firebase
+    }
   };
 
   const deleteTask = (taskId) => {
-    setTaskWindows(taskWindows.map(window => {
+    const updatedWindows = taskWindows.map(window => {
       if (window.id === windowId) {
         return {
           ...window,
@@ -38,15 +52,30 @@ const TaskInWindow = ({ taskWindows, setTaskWindows, windowId, navigation }) => 
         };
       }
       return window;
-    }));
+    });
+
+    setTaskWindows(updatedWindows);
+
+    // Сохранение задач в Firebase после удаления
+    const user = auth.currentUser;
+    if (user) {
+      saveTasks(updatedWindows, user); // Сохраняем обновленные задачи в Firebase
+    }
   };
 
   const deleteWindow = () => {
-    setTaskWindows(taskWindows.filter(window => window.id !== windowId));
+    const updatedWindows = taskWindows.filter(window => window.id !== windowId);
+    setTaskWindows(updatedWindows);
+
+    // Сохранение задач после удаления окна
+    const user = auth.currentUser;
+    if (user) {
+      saveTasks(updatedWindows, user); // Сохраняем обновленные задачи в Firebase
+    }
   };
 
   const changeTaskStatus = (taskId) => {
-    setTaskWindows(taskWindows.map(window => {
+    const updatedWindows = taskWindows.map(window => {
       if (window.id === windowId) {
         return {
           ...window,
@@ -60,7 +89,15 @@ const TaskInWindow = ({ taskWindows, setTaskWindows, windowId, navigation }) => 
         };
       }
       return window;
-    }));
+    });
+
+    setTaskWindows(updatedWindows);
+
+    // Сохранение задач после изменения статуса
+    const user = auth.currentUser;
+    if (user) {
+      saveTasks(updatedWindows, user); // Сохраняем обновленные задачи в Firebase
+    }
   };
 
   return (
@@ -68,7 +105,7 @@ const TaskInWindow = ({ taskWindows, setTaskWindows, windowId, navigation }) => 
       <View style={styles.headerContainer}>
         {/* Кнопка для выбора времени */}
         <TouchableOpacity onPress={() => navigation.navigate('TimePicker', { windowId, taskWindows, setTaskWindows })}>
-          <Text style={styles.timeText}>Время: {window.time}</Text>
+          <Text style={styles.timeText}>{window.time}</Text>
         </TouchableOpacity>
       </View>
 
@@ -125,6 +162,8 @@ const getTaskStatusColor = (status) => {
 };
 
 export default TaskInWindow;
+
+
 
 
 

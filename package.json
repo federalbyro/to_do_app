@@ -15,6 +15,7 @@
     "expo": "^45.0.8",
     "expo-modules-core": "~0.9.2",
     "expo-status-bar": "~1.12.1",
+    "firebase": "^10.13.2",
     "glob": "^11.0.0",
     "react": "18.2.0",
     "react-datepicker": "^7.3.0",

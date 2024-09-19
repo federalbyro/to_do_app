@@ -6,6 +6,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    zIndex: 1, // Убедитесь, что TimePicker на переднем плане
   },
   label: {
     fontSize: 24,  // Увеличиваем текст
@@ -27,10 +28,15 @@ export default StyleSheet.create({
     marginTop: 20,
     width: '60%',
     alignItems: 'center',
+    zIndex: 1,
   },
   saveButtonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  datePickerWrapper: {
+    zIndex: 2, // Увеличиваем zIndex для улучшения кликабельности
+    width: '100%',
   },
 });
