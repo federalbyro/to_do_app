@@ -11,7 +11,8 @@ export default StyleSheet.create({
     marginTop: 'auto', // Кнопки всегда снизу
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingVertical: 10,
+    paddingVertical: 30,
+    paddingHorizontal: 20,
   },
 
   button: {
