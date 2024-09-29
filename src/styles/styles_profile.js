@@ -69,8 +69,13 @@ export default StyleSheet.create({
   footerContainer: {
     marginTop: 'auto', // Кнопки всегда снизу
     flexDirection: 'row',
+<<<<<<< HEAD
     justifyContent: 'space-around', // Используем 'space-around' для равного пространства
     paddingVertical: 30, // Установлено из второго стиля
+=======
+    justifyContent: 'space-around',
+    paddingVertical: 30,
+>>>>>>> 71e03aaf1f679ce941515be7e740167ed977669d
     paddingHorizontal: 20,
   },
   
