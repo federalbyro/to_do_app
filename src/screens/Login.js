@@ -60,7 +60,10 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.loginButtonText}>LOGIN</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.signupButton} onPress={handleSignUp}>
+      <TouchableOpacity 
+        style={styles.signupButton} 
+        onPress={() => navigation.navigate('SignUpScreen')} // Навигация на экран регистрации
+      >
         <Text style={styles.signupButtonText}>SIGN UP</Text>
       </TouchableOpacity>
     </View>

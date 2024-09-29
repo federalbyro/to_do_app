@@ -43,6 +43,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
   },
+  deleteButton: {
+    backgroundColor: '#e74c3c',
+    borderRadius: 10,
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   saveButtonText: {
     color: '#fff',
     fontSize: 18,
