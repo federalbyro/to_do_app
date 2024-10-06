@@ -1,57 +1,39 @@
-// styles_profile.js (страница профиля)
 // src/styles/styles_profile.js
 import { StyleSheet } from 'react-native';
+import commonStyles from './styles_common';
 
 export default StyleSheet.create({
+  ...commonStyles,
   // Контейнер
-  container: {
-    flex: 1,
-    alignItems: 'center', // Центрирование по горизонтали
-    padding: 20,
-    backgroundColor: '#f5f5f5',
-    // Разрешение конфликта justifyContent:
-    // - Если нужно, чтобы контент был по центру: 'center'
-    // - Если нужно, чтобы контент был внизу: 'flex-end'
-    // Выберите нужное значение или удалите это свойство, если оно будет переопределено в дочерних компонентах
-    justifyContent: 'center',
-  },
-  
-  // Фотография пользователя
   photoContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
     width: 100,
     height: 100,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    borderRadius: 50,
+    overflow: 'hidden',
   },
   photo: {
-    width: 100,
-    height: 100,
+    width: '100%',
+    height: '100%',
     borderRadius: 50,
   },
   photoPlaceholder: {
     fontSize: 16,
     color: '#aaa',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    padding: 10, // Уменьшено с 20 до 10
-    borderRadius: 50,
-    width: 100,
-    height: 100,
     textAlign: 'center',
     textAlignVertical: 'center',
-    justifyContent: 'center', // Центрирование текста по вертикали
   },
-  
+
   // Выбор цвета
   colorPickerContainer: {
     marginVertical: 20,
-    alignItems: 'center',
+    alignItems: 'absolute',
   },
-  label: {
-    fontSize: 18,
-    marginBottom: 10,
-  },
+
   colorsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -64,45 +46,76 @@ export default StyleSheet.create({
     borderWidth: 2,
     marginHorizontal: 5,
   },
-  
-  // Нижний контейнер с кнопками
+
+  // Нижний контейнер (идентичен верхнему)
   footerContainer: {
-    marginTop: 'auto', // Кнопки всегда снизу
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 90,
+    backgroundColor: 'rgba(211, 211, 211, 0.5)', // Идентичный фон верхнему контейнеру
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     flexDirection: 'row',
-    justifyContent: 'space-around', // Используем 'space-around' для равного пространства
-    paddingVertical: 30, // Установлено из второго стиля
-    paddingHorizontal: 20,
-  },
-  
-  // Кнопки
-  button: {
-    backgroundColor: '#2980b9',
-    padding: 15,
-    borderRadius: 5,
-    width: 120,
+    justifyContent: 'space-around',
     alignItems: 'center',
-    // Объединяем marginHorizontal из первого стиля
-    marginHorizontal: 10,
+    // Тени
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 10,
   },
-  buttonText: {
-    color: 'white',
+
+  // Кнопки в нижнем контейнере
+  footerButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 30, // Больший радиус для мультяшного вида
+    // Тени для объёма
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
+    backgroundColor: '#fff', // Белый фон для кнопки
+  },
+  footerButtonText: {
+    color: 'black', // Темный цвет текста
     fontSize: 16,
     fontWeight: 'bold',
+    marginLeft: 10, // Отступ между иконкой и текстом
   },
-  
-  // Кнопка выхода
+
+  // Кнопка выхода с градиентом и большей округлостью
   logoutButton: {
-    backgroundColor: 'red',
-    padding: 10,  // Уменьшенные отступы
-    borderRadius: 5,
-    width: '60%', // Уменьшенная ширина
+    // Удаляем backgroundColor: 'red', так как будем использовать градиент
+    paddingVertical: 12, // Увеличенные отступы для большей высоты
+    paddingHorizontal: 25, // Увеличенные отступы для большей ширины
+    borderRadius: 30, // Больший радиус для большей округлости
     alignItems: 'center',
-    marginTop: 10,  // Уменьшенный отступ сверху
     alignSelf: 'center',
+    marginTop: 20, // Увеличенный отступ сверху
+    // Тени
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
   },
   logoutButtonText: {
-    color: 'white',
-    fontSize: 14,  // Уменьшенный размер шрифта
+    color: 'black',
+    fontSize: 16, // Увеличенный размер шрифта
     fontWeight: 'bold',
   },
+
+  // Ошибка
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
 });
+

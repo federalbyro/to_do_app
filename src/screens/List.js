@@ -1,89 +1,129 @@
-import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, FlatList, Text } from 'react-native';
-import TaskInWindow from './task_in_window';
+// ./screens/TasksScreen.js
+import React, { useState, useEffect, useContext } from 'react';
+import { SafeAreaView, View, KeyboardAvoidingView, FlatList, Text, Platform } from 'react-native';
+import CustomButton from '../components/CustomButton';
+import TaskInWindow from '../components/task_in_window';
 import styles from '../styles/styles_list_of_task';
-import main_style from '../styles/styles'; // Импорт функций
-import { saveTasks, loadTasks } from '../firebase/firestore';
+import { MaterialIcons, Feather } from '@expo/vector-icons';
 import { auth } from '../FireBaseConfig';
+import { saveTasks, loadTasks } from '../firebase/firestore';
+import { ThemeContext } from '../context/ThemeContext';
 
 const TasksScreen = ({ navigation }) => {
   const [taskWindows, setTaskWindows] = useState([]);
+  const { selectedColor } = useContext(ThemeContext); 
 
-  // Загружаем задачи при входе пользователя
   useEffect(() => {
     const user = auth.currentUser;
     if (user) {
       loadTasks(user).then(tasks => {
-        setTaskWindows(tasks || []); // Устанавливаем полученные задачи
+        setTaskWindows(tasks || []);
       });
     }
   }, []);
 
-  // Функция для сохранения задач
-  const handleSaveTasks = () => {
-    const user = auth.currentUser;
-    if (user) {
-      saveTasks(taskWindows, user); // Сохраняем задачи
-    }
-  };
-
-  // Создание нового окна задач
-  const createTaskWindow = () => ({
-    id: Math.random().toString(),
-    time: 'Выберите время', // Здесь параметр для выбора времени
-    tasks: [],
-  });
-
-  // Добавление нового окна задач с сохранением
   const addTaskWindow = () => {
     if (taskWindows.length < 3) {
-      const updatedTaskWindows = [...taskWindows, createTaskWindow()];
+      const newTaskWindow = {
+        id: Math.random().toString(),
+        time: 'Выберите время',
+        tasks: [],
+      };
+      const updatedTaskWindows = [...taskWindows, newTaskWindow];
       setTaskWindows(updatedTaskWindows);
-      handleSaveTasks(); // Сохраняем после добавления
+      saveTasks(updatedTaskWindows, auth.currentUser);
     } else {
       alert('Максимум 3 окна задач! Оплатите, чтобы увеличить лимит.');
     }
   };
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={taskWindows}
-        renderItem={({ item }) => (
-          <View style={styles.taskWindow}>
-            {/* Передаем навигацию и задачи */}
-            <TaskInWindow
-              taskWindows={taskWindows}
-              setTaskWindows={(updatedWindows) => {
-                setTaskWindows(updatedWindows);
-                handleSaveTasks(); // Сохраняем после изменения задач
+    <SafeAreaView style={{ flex: 1, backgroundColor: selectedColor }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+        {/* Header */}
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>Tasks</Text>
+        </View>
+
+        {/* Main Content */}
+        <View style={{ flex: 1, paddingTop: 120, paddingBottom: 120 }}>
+          {/* FlatList */}
+          <FlatList
+            data={taskWindows}
+            renderItem={({ item }) => (
+              <View style={styles.taskWindow}>
+                <TaskInWindow
+                  taskWindows={taskWindows}
+                  setTaskWindows={(updatedWindows) => {
+                    setTaskWindows(updatedWindows);
+                    saveTasks(updatedWindows, auth.currentUser);
+                  }}
+                  windowId={item.id}
+                  navigation={navigation}
+                />
+              </View>
+            )}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={{ paddingBottom: 20 }}
+            style={{ flex: 1 }}
+          />
+
+          {/* Add New Window Button */}
+          <View style={{ alignItems: 'center', marginBottom: 20 }}>
+            <CustomButton
+              onPress={addTaskWindow}
+              text="+"
+              gradientColors={['#d13156', '#d13156']}
+              buttonStyle={{
+                width: 60,
+                height: 60,
+                borderRadius: 30,
+                paddingVertical: 0,
+                paddingHorizontal: 0,
               }}
-              windowId={item.id}
-              navigation={navigation}  // Добавляем пропс navigation
+              textStyle={{
+                fontSize: 60,
+                color: 'white',
+                lineHeight: 80,
+              }}
             />
           </View>
-        )}
-        keyExtractor={(item) => item.id}
-        style={styles.taskWindowList}
-      />
+        </View>
 
-      <TouchableOpacity style={styles.addWindowButton} onPress={addTaskWindow}>
-        <Text style={styles.addButtonText}>Добавить новое окно</Text>
-      </TouchableOpacity>
+        {/* Footer */}
+        <View style={styles.footerContainer}>
+          {/* Profile Button */}
+          <CustomButton
+            onPress={() => navigation.navigate('User')}
+            text="profile"
+            gradientColors={['#fff', '#fff']}
+            icon={<MaterialIcons name="person" size={24} color="black" />}
+            style={{ width: 150, height: 50 }}
+          />
 
-      <View style={styles.footerContainer}>
-        <TouchableOpacity style={main_style.button} onPress={() => navigation.navigate('User')}>
-          <Text style={main_style.buttonText}>Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={main_style.button} onPress={() => navigation.navigate('Tasks')}>
-          <Text style={main_style.buttonText}>Tasks</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          {/* Tasks Button */}
+          <CustomButton
+            onPress={() => navigation.navigate('Tasks')}
+            text="to-do"
+            gradientColors={['#fce3e7', '#de3163']}
+            icon={<Feather name="clipboard" size={24} color="black" />}
+            style={{ width: 150, height: 50 }}
+            textStyle={{ color: 'black' }}
+          />
+        </View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 export default TasksScreen;
+
+
+
+
 
 
 

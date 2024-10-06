@@ -3,43 +3,78 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center', // Центрирование по вертикали
+    paddingHorizontal: 20,
+  },
+  headerContainer: {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    height: 100,
+    backgroundColor: 'rgba(211, 211, 211, 0.5)', // Светло-серый цвет с прозрачностью
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff', // Фон белый
-    padding: 20,
+    // Тени
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 10, // Для Android
   },
-  title: {
+  headerText: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#000', // Текст черный
+    color: '#333',
   },
   input: {
-    width: '100%',
+    color: '#717272',
+    borderWidth: 2.5,
     borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 10,
-    fontSize: 16,
+    borderRadius: 25,
+    padding: 15,
     marginBottom: 20,
-    backgroundColor: '#f9f9f9', // Светло-серый фон для полей ввода
+    width: 300, // Фиксированная ширина для полей ввода
+    backgroundColor: '#f9f9f9',
+    // Тени
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2.62,
+    elevation: 4,
   },
   signupButton: {
-    backgroundColor: '#2ecc71', // Изумрудный цвет кнопки
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 5,
-    width: '100%',
+    backgroundColor: 'fec2cc', // Розовый цвет
+    paddingVertical: 10,
+    paddingHorizontal: 25,
+    marginTop: 33,
+    borderRadius: 30,
+    width: 120, // Уменьшенная ширина кнопки
     alignItems: 'center',
-    marginBottom: 20,
+    // Тени для создания объемного эффекта
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
+    elevation: 8,
   },
   signupButtonText: {
-    color: '#fff',
+    color: '#black',
     fontSize: 16,
     fontWeight: 'bold',
   },
   backToLogin: {
     color: '#3498db',
     fontSize: 14,
+    marginTop: 10, // Добавил отступ сверху для лучшего расположения
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
+    textAlign: 'center',
   },
 });
+

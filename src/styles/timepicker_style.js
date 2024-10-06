@@ -1,42 +1,79 @@
+// ./styles/timepicker_style.js
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    zIndex: 1, // Убедитесь, что TimePicker на переднем плане
+    paddingHorizontal: 20,
+  },
+  headerContainer: {
+    position: 'center',
+    width:'100%',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 60,
+    backgroundColor: 'rgba(211, 211, 211, 0.9)', // Немного непрозрачный фон
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    flexDirection: 'row',
+    justifyContent: 'flex-start', // Выравнивание элементов по началу (стрелка назад слева)
+    alignItems: 'center',
+    paddingHorizontal: 15,
+  },
+  headerText: {
+    fontSize: 24, // Увеличиваем текст
+    fontWeight: 'bold',
+    color: '#333',
+    marginLeft: 10, // Отступ между стрелкой и текстом
+  },
+  backButton: {
+    // Дополнительные стили при необходимости
   },
   label: {
-    fontSize: 24,  // Увеличиваем текст
-    marginBottom: 20,
+    fontSize: 20,
+    marginBottom: 10,
+    alignSelf: 'flex-start',
+    width: '100%',
+    paddingLeft: 10,
   },
-  input: {
-    fontSize: 18,  // Увеличиваем размер текста для выбора даты
-    padding: 10,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#ccc',
-    width: '80%',
-    marginBottom: 20,
+  pickerWrapper: {
+    width: '100%',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  pickerContainer: {
+    width: '100%',
+    padding: 15,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 20, // Округленные углы
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  pickerButtonText: {
+    fontSize: 16,
+    color: '#333',
   },
   saveButton: {
-    backgroundColor: '#3498db',
-    padding: 15,
-    borderRadius: 5,
-    marginTop: 20,
-    width: '60%',
+    position: 'absolute',
+    bottom: 30,
+    width: '80%',
+    height: 50,
+    borderRadius: 25,
+    overflow: 'hidden', // Чтобы градиент не выходил за пределы кнопки
+  },
+  gradientButton: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 1,
   },
   saveButtonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
-  datePickerWrapper: {
-    zIndex: 2, // Увеличиваем zIndex для улучшения кликабельности
-    width: '100%',
-  },
 });
+
+
+

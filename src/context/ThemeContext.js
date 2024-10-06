@@ -1,6 +1,4 @@
-// src/context/ThemeContext.js
-// src/context/ThemeContext.js
-
+// ./context/ThemeContext.js
 import React, { createContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -44,4 +42,5 @@ export const ThemeProvider = ({ children }) => {
     </ThemeContext.Provider>
   );
 };
+
 

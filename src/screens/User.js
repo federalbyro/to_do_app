@@ -1,12 +1,14 @@
-// src/screens/User.js
-
+// ./screens/UserScreen.js
 import React, { useState, useContext, useEffect } from 'react';
-import { View, TouchableOpacity, Text, Image, Alert, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, Image, Alert, KeyboardAvoidingView, Platform, SafeAreaView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import styles from '../styles/styles_profile'; 
+import commonStyles from '../styles/styles_common'; // Импортируем общий стиль
 import { auth } from '../FireBaseConfig';
 import { saveUserPhoto, loadUserPhoto } from '../firebase/firestore'; 
 import { ThemeContext } from '../context/ThemeContext';
+import { MaterialIcons, Feather } from '@expo/vector-icons'; // Импортируем иконки
+import CustomButton from '../components/CustomButton';
 
 const UserScreen = ({ navigation }) => {
   const { selectedColor, setSelectedColor } = useContext(ThemeContext);
@@ -64,61 +66,95 @@ const UserScreen = ({ navigation }) => {
   };
 
   // Цвета для выбора
-  const colors = ['#50C878', '#8A2BE2', '#000000', '#FFFFFF'];
+  const colors = [ '#8A2BE2', '#000000', '#FFFFFF'];
 
   return (
-    <View style={[styles.container, { backgroundColor: selectedColor }]}>
-      {/* Фотография пользователя */}
-      <TouchableOpacity onPress={pickImage} style={styles.photoContainer}>
-        {photo ? (
-          <Image
-            source={{ uri: photo }}
-            style={styles.photo}
-            resizeMode="cover"
-          />
-        ) : (
-          <Text style={styles.photoPlaceholder}>Upload Photo</Text>
-        )}
-      </TouchableOpacity>
-
-      {/* Выбор цвета темы */}
-      <View style={styles.colorPickerContainer}>
-        <Text style={styles.label}>Choose Theme Color:</Text>
-        <View style={styles.colorsRow}>
-          {colors.map((color, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.colorCircle,
-                {
-                  backgroundColor: color,
-                  borderColor: selectedColor === color ? '#000' : '#ccc',
-                },
-              ]}
-              onPress={() => setSelectedColor(color)}
-            />
-          ))}
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardAvoidingView 
+        style={[styles.container, { backgroundColor: selectedColor }]} 
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        {/* Верхняя полусерая вкладка с заголовком */}
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>Profile</Text>
         </View>
-      </View>
 
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-        <Text style={styles.logoutButtonText}>Log Out</Text>
-      </TouchableOpacity>
+        {/* Основной контент */}
+        <View style={{ alignItems: 'center', width: '100%' }}>
+          {/* Фотография пользователя */}
+          <TouchableOpacity onPress={pickImage} style={styles.photoContainer}>
+            {photo ? (
+              <Image
+                source={{ uri: photo }}
+                style={styles.photo}
+                resizeMode="cover"
+              />
+            ) : (
+              <Text style={styles.photoPlaceholder}>Upload Photo</Text>
+            )}
+          </TouchableOpacity>
 
-      {/* Кнопки профиля и задач */}
-      <View style={styles.footerContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('User')}>
-          <Text style={styles.buttonText}>Profile</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Tasks')}>
-          <Text style={styles.buttonText}>Tasks</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+          {/* Выбор цвета темы */}
+          <View style={styles.colorPickerContainer}>
+            <View style={styles.colorsRow}>
+              {colors.map((color, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={[
+                    styles.colorCircle,
+                    {
+                      backgroundColor: color,
+                      borderColor: selectedColor === color ? '#000' : '#ccc',
+                    },
+                  ]}
+                  onPress={() => setSelectedColor(color)}
+                />
+              ))}
+            </View>
+          </View>
+
+          {/* Кнопка выхода */}
+          <CustomButton 
+  onPress={handleLogout} 
+  text="log out" 
+  textStyle={{color : 'black'}}
+  gradientColors={['#ff7e5f', '#ff0000']} // Используем те же цвета градиента
+/>
+        </View>
+
+        {/* Нижний контейнер с кнопками */}
+        <View style={styles.footerContainer}>
+  {/* Кнопка "Profile" */}
+  <CustomButton
+    onPress={() => navigation.navigate('User')}
+    text="profile"
+    gradientColors={['#fff', '#fff']} // White background for "profile" button
+    icon={<MaterialIcons name="person" size={24} color="black" />}
+    style={{ width: 150, height: 50 }} // Ensure consistent size
+  />
+
+  {/* Кнопка "to-do" */}
+  <CustomButton
+    onPress={() => navigation.navigate('Tasks')}
+    text="to-do"
+    gradientColors={['#fce3e7', '#de3163']} // Gradient background for "to-do" button
+    icon={<Feather name="clipboard" size={24} color="black" />}
+    style={{ width: 150, height: 50 }} // Ensure consistent size
+    textStyle={{ color: 'black' }}
+  />
+</View>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 export default UserScreen;
+
+
+
+
+
+
 
 
 

@@ -1,54 +1,59 @@
+// ./styles/styles_task.js
 import { StyleSheet } from 'react-native';
+import commonStyles from './styles_common'; // Импортируем общий файл стилей
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-  },
+  ...commonStyles, // Включаем общие стили
 
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-
+  // Дополнительные стили для списка задач
   taskWindow: {
+    width: '120%', // Уменьшаем ширину окна
     padding: 10,
-    marginBottom: 15,
-    borderColor: '#ccc',
-    borderWidth: 1,
+    marginVertical: 5, // Уменьшаем отступы между окнами
+    alignSelf: 'center', // Центрируем окна по горизонтали
+    backgroundColor: 'white',
     borderRadius: 10,
-    backgroundColor: '#f1f1f1',
-    position: 'relative', // Добавлено для позиционирования кнопки удаления окна
+    borderWidth: 1,
+    // Тени
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2.62,
+    elevation: 4,
+},
+  taskWindowList: {
+    width: '100%',
   },
-
-  taskWindowTime: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-
-  addWindowButton: {
-    backgroundColor: '#3498db',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginVertical: 20, // Отступы для кнопки добавления окна
-  },
-
   addButtonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
-
   footerContainer: {
-    marginTop: 'auto', // Кнопки всегда снизу
+    // Ensure this style matches the one in your `styles_profile.js`
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 90,
+    backgroundColor: 'rgba(211, 211, 211, 0.5)',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingVertical: 10,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -5 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 10,
   },
 
+  footerButtonText: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
   deleteWindowButton: {
     position: 'absolute',
     top: 10,
@@ -60,28 +65,24 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   deleteButtonText: {
     color: 'white',
     fontWeight: 'bold',
   },
-
   newTaskContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 10,
   },
-
   input: {
     flex: 1,
     borderColor: '#ccc',
     borderWidth: 1,
     borderRadius: 10,
     padding: 8,
-    marginLeft: 10, // Отступ от кнопки "+"
+    marginLeft: 10,
   },
-
   addTaskButton: {
     width: 40,
     height: 40,
@@ -90,4 +91,33 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+ addButtonContainer: {
+    position: 'absolute',
+    bottom: 70, // Увеличиваем отступ от футера
+    alignSelf: 'center',
+    zIndex: 10, // Убедитесь, что кнопка отображается над другими элементами
+},
+addButton: {
+    width: 80,
+    height: 80,
+    borderRadius: 40, // Делает кнопку круглой
+    paddingVertical: 0,
+    paddingHorizontal: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
+    backgroundColor: 'red', // Цвет кнопки (для теста)
+},
+addButtonText: {
+    fontSize: 40, // Увеличенный размер знака "+"
+    color: 'white',
+    lineHeight: 70, // Центрирует текст по вертикали
+    textAlign: 'center',
+},
 });
+
+

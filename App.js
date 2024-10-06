@@ -19,41 +19,39 @@ const AppContent = () => {
   const { selectedColor } = useContext(ThemeContext);
 
   return (
+    <ThemeProvider>
     <View style={[styles.container, { backgroundColor: selectedColor }]}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Login"
             component={LoginScreen}
-            options={{ title: 'Авторизация' }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="SignUpScreen"
             component={SignUpScreen}
-            options={{ title: 'Регистрация' }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="User"
             component={UserScreen}
-            options={{
-              title: 'You',
-              headerTitleAlign: 'center',
-              headerLeft: () => null, // Убираем стрелку "Назад"
-            }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Tasks"
             component={TasksScreen}
-            options={{ title: 'List of Tasks', headerTitleAlign: 'center' }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="TimePicker"
             component={TimePickerScreen}
-            options={{ title: 'Выбор времени', headerTitleAlign: 'center' }}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
+    </ThemeProvider>
   );
 };
 
