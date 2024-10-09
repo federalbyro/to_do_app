@@ -82,7 +82,7 @@ export default StyleSheet.create({
     elevation: 8,
   },
   signupButtonText: {
-    color: '#black',
+    color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
   },

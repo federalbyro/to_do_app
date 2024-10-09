@@ -4,7 +4,7 @@ import { View, TouchableOpacity, Text, Image, Alert, KeyboardAvoidingView, Platf
 import * as ImagePicker from 'expo-image-picker';
 import styles from '../styles/styles_profile'; 
 import commonStyles from '../styles/styles_common'; // Импортируем общий стиль
-import { auth } from '../FireBaseConfig';
+import { auth } from '../../FireBaseConfig';
 import { saveUserPhoto, loadUserPhoto } from '../firebase/firestore'; 
 import { ThemeContext } from '../context/ThemeContext';
 import { MaterialIcons, Feather } from '@expo/vector-icons'; // Импортируем иконки
@@ -88,6 +88,7 @@ const UserScreen = ({ navigation }) => {
                 source={{ uri: photo }}
                 style={styles.photo}
                 resizeMode="cover"
+                testID="user-photo"
               />
             ) : (
               <Text style={styles.photoPlaceholder}>Upload Photo</Text>
@@ -100,6 +101,7 @@ const UserScreen = ({ navigation }) => {
               {colors.map((color, index) => (
                 <TouchableOpacity
                   key={index}
+                  testID={`colorCircle-${color}`}
                   style={[
                     styles.colorCircle,
                     {

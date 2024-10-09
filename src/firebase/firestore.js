@@ -1,7 +1,7 @@
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { db } from '../FireBaseConfig'; // Firestore из конфига
+import { db } from '../../FireBaseConfig'; // Firestore из конфига
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { storage } from '../FireBaseConfig';
+import { storage } from '../../FireBaseConfig';
 // Функция для сохранения задач
 export const saveTasks = async (taskWindows, user) => {
   if (user) {

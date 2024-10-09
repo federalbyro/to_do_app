@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../FireBaseConfig';
+import { auth } from '../../FireBaseConfig';
 import styles from '../styles/signup_style'; // Подключаем обновленные стили
 import { LinearGradient } from 'expo-linear-gradient';
 

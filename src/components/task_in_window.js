@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, FlatList, TextInput, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import DeleteWindowButton from '../components/DeleteWindowButton'; // Компонент для удаления окна
-import { auth } from '../FireBaseConfig'; // Импорт Firebase auth
+import { auth } from '../../FireBaseConfig'; // Импорт Firebase auth
 import { saveTasks } from '../firebase/firestore'; // Импорт функции сохранения задач в Firestore
 import styles from '../styles/style_task_in_window';
 

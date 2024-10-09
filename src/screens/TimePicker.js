@@ -5,7 +5,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../styles/timepicker_style';
-import { auth } from '../FireBaseConfig';
+import { auth } from '../../FireBaseConfig';
 import { saveTasks } from '../firebase/firestore';
 import { ThemeContext } from '../context/ThemeContext'; // Импортируем ThemeContext
 
@@ -97,6 +97,7 @@ const TimePickerScreen = ({ route, navigation }) => {
         </TouchableOpacity>
         {showDatePicker && (
           <DateTimePicker
+          testID="date-picker" // Добавляем testID
             value={selectedDate || new Date(new Date().setDate(new Date().getDate() + 1))}
             mode="date"
             display="default"
@@ -119,6 +120,7 @@ const TimePickerScreen = ({ route, navigation }) => {
         </TouchableOpacity>
         {showTimePicker && (
           <DateTimePicker
+          testID="time-picker"
             value={selectedTime || new Date()}
             mode="time"
             display="default"

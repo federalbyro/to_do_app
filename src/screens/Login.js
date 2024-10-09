@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform } from 'react-native';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../FireBaseConfig'; // Импортируем конфиг Firebase
+import { auth } from '../../FireBaseConfig'; // Импортируем конфиг Firebase
 import styles from '../styles/login_style'; // Подключаем стили
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -54,22 +54,18 @@ const LoginScreen = ({ navigation }) => {
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
         <TouchableOpacity onPress={handleLogin}>
-  <LinearGradient
-    colors={['#e0e0e0', '#c0c0c0']}
-    style={styles.loginButton}
-  >
+ 
+    <View style={styles.loginButton}>
+
     <Text style={styles.loginButtonText}>login</Text>
-  </LinearGradient>
+  </View>
 </TouchableOpacity>
 
 <TouchableOpacity onPress={() => navigation.navigate('SignUpScreen')}>
-  <LinearGradient
-    colors={['#fce3e7', '#de3163']}
-    style={styles.signupButton}
-  >
-    <Text style={styles.signupButtonText}>sign up</Text>
-  </LinearGradient>
-</TouchableOpacity>
+          <LinearGradient colors={['#fce3e7', '#de3163']} style={styles.signupButton}>
+            <Text style={styles.signupButtonText}>sign up</Text>
+          </LinearGradient>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );

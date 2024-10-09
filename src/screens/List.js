@@ -5,7 +5,7 @@ import CustomButton from '../components/CustomButton';
 import TaskInWindow from '../components/task_in_window';
 import styles from '../styles/styles_list_of_task';
 import { MaterialIcons, Feather } from '@expo/vector-icons';
-import { auth } from '../FireBaseConfig';
+import { auth } from '../../FireBaseConfig';
 import { saveTasks, loadTasks } from '../firebase/firestore';
 import { ThemeContext } from '../context/ThemeContext';
 
