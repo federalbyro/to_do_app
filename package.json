@@ -11,7 +11,6 @@
     "build:web": "npx expo build:web"
   },
   "dependencies": {
-    "@expo/webpack-config": "^19.0.0",
     "@react-native-async-storage/async-storage": "^1.18.2",
     "@react-native-community/datetimepicker": "7.2.0",
     "@react-navigation/native": "^6.1.8",
@@ -33,6 +32,7 @@
   "devDependencies": {
     "@babel/core": "^7.25.7",
     "@babel/preset-env": "^7.25.7",
+    "@expo/webpack-config": "^19.0.1",
     "@testing-library/jest-native": "^5.4.3",
     "@testing-library/react-native": "^12.7.2",
     "babel-jest": "^29.7.0",
