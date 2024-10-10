@@ -32,7 +32,7 @@ describe('LoginScreen', () => {
     expect(getByText('login')).toBeTruthy();
     expect(getByText('sign up')).toBeTruthy();
 
-    console.log('Email, Password, Login,Sign up link rendered successfully.');
+    console.log('Email, Password, Login, Sign up link rendered successfully.');
   });
 
   it('shows error when login fails', async () => {
