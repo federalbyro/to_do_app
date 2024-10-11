@@ -1,51 +1,41 @@
 // ./styles/timepicker_style.js
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+import commonStyles from './styles_common'; 
+
+const { height } = Dimensions.get('window');
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     paddingHorizontal: 20,
+    paddingTop: 30, // Добавляем отступ сверху для размещения под шапкой
+ // Фоновый цвет экрана (можно изменить по желанию)
   },
-  headerContainer: {
-    position: 'center',
-    width:'100%',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 60,
-    backgroundColor: 'rgba(211, 211, 211, 0.9)', // Немного непрозрачный фон
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    flexDirection: 'row',
-    justifyContent: 'flex-start', // Выравнивание элементов по началу (стрелка назад слева)
-    alignItems: 'center',
-    paddingHorizontal: 15,
-  },
-  headerText: {
-    fontSize: 24, // Увеличиваем текст
-    fontWeight: 'bold',
-    color: '#333',
-    marginLeft: 10, // Отступ между стрелкой и текстом
-  },
+
   backButton: {
-    // Дополнительные стили при необходимости
+    textAlign: 'left', // Дополнительные стили при необходимости
   },
   label: {
+    color:'pink',
     fontSize: 20,
     marginBottom: 10,
     alignSelf: 'flex-start',
     width: '100%',
     paddingLeft: 10,
+    textAlign: 'center',
   },
   pickerWrapper: {
-    width: '100%',
+    width: '50%',
     alignItems: 'center',
     marginVertical: 10,
+    // Добавляем flex для распределения пространства
+    flex: 1,
+    justifyContent: 'center',
   },
   pickerContainer: {
     width: '100%',
-    padding: 15,
+    padding: 5,
     backgroundColor: '#f0f0f0',
     borderRadius: 20, // Округленные углы
     alignItems: 'center',
@@ -73,7 +63,23 @@ export default StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  webDatePicker: {
+    width: '100%',
+    padding: 10,
+    borderRadius: 5,
+    border: '1px solid #ccc',
+    fontSize: 16,
+  },
+  webTimePicker: {
+    width: '100%',
+    padding: 10,
+    borderRadius: 5,
+    border: '1px solid #ccc',
+    fontSize: 16,
+  },
+  ...commonStyles,
 });
+
 
 
 

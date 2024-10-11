@@ -1,13 +1,22 @@
 // ./screens/TimePickerScreen.js
-import React, { useState, useContext } from 'react'; // Импортируем useContext
-import { View, Text, TouchableOpacity, Platform, Alert, StyleSheet, SafeAreaView } from 'react-native';
+import React, { useState, useContext } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Platform,
+  Alert,
+  SafeAreaView,
+} from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Feather } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../styles/timepicker_style';
 import { auth } from '../../FireBaseConfig';
 import { saveTasks } from '../firebase/firestore';
-import { ThemeContext } from '../context/ThemeContext'; // Импортируем ThemeContext
+import { ThemeContext } from '../context/ThemeContext';
+import DatePicker from 'react-datepicker'; // Импортируем DatePicker для веба
+import 'react-datepicker/dist/react-datepicker.css'; // Импортируем стили для DatePicker
 
 const TimePickerScreen = ({ route, navigation }) => {
   const { windowId, taskWindows, setTaskWindows } = route.params;
@@ -74,6 +83,21 @@ const TimePickerScreen = ({ route, navigation }) => {
     }
   };
 
+  // Обработчик изменения даты для веба
+  const handleWebDateChange = date => {
+    setSelectedDate(date);
+  };
+
+  // Обработчик изменения времени для веба
+  const handleWebTimeChange = event => {
+    const timeString = event.target.value;
+    const [hours, minutes] = timeString.split(':');
+    const time = new Date();
+    time.setHours(parseInt(hours, 10));
+    time.setMinutes(parseInt(minutes, 10));
+    setSelectedTime(time);
+  };
+
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: selectedColor }]}>
       {/* Header */}
@@ -81,24 +105,37 @@ const TimePickerScreen = ({ route, navigation }) => {
         <TouchableOpacity style={styles.backButton} onPress={handleBackPress}>
           <Feather name="arrow-left" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>to-do-app</Text>
+        <Text style={styles.headerText}>TimePicker</Text>
       </View>
 
       {/* Выбор даты */}
       <View style={styles.pickerWrapper}>
         <Text style={styles.label}>Choose date</Text>
-        <TouchableOpacity
-          style={styles.pickerContainer}
-          onPress={() => setShowDatePicker(true)}
-        >
-          <Text style={styles.pickerButtonText}>
-            {selectedDate ? selectedDate.toLocaleDateString() : 'Выбрать дату'}
-          </Text>
-        </TouchableOpacity>
-        {showDatePicker && (
+        {Platform.OS === 'web' ? (
+          <DatePicker
+            selected={selectedDate}
+            onChange={handleWebDateChange}
+            minDate={new Date(new Date().setDate(new Date().getDate() + 1))}
+            dateFormat="P"
+            placeholderText="Выбрать дату"
+            style={styles.webDatePicker}
+          />
+        ) : (
+          <TouchableOpacity
+            style={styles.pickerContainer}
+            onPress={() => setShowDatePicker(true)}
+          >
+            <Text style={styles.pickerButtonText}>
+              {selectedDate ? selectedDate.toLocaleDateString() : 'Выбрать дату'}
+            </Text>
+          </TouchableOpacity>
+        )}
+        {showDatePicker && Platform.OS !== 'web' && (
           <DateTimePicker
-          testID="date-picker" // Добавляем testID
-            value={selectedDate || new Date(new Date().setDate(new Date().getDate() + 1))}
+            testID="date-picker"
+            value={
+              selectedDate || new Date(new Date().setDate(new Date().getDate() + 1))
+            }
             mode="date"
             display="default"
             onChange={onChangeDate}
@@ -110,17 +147,30 @@ const TimePickerScreen = ({ route, navigation }) => {
       {/* Выбор времени */}
       <View style={styles.pickerWrapper}>
         <Text style={styles.label}>Choose time</Text>
-        <TouchableOpacity
-          style={styles.pickerContainer}
-          onPress={() => setShowTimePicker(true)}
-        >
-          <Text style={styles.pickerButtonText}>
-            {selectedTime ? selectedTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Выбрать время'}
-          </Text>
-        </TouchableOpacity>
-        {showTimePicker && (
+        {Platform.OS === 'web' ? (
+          <input
+            type="time"
+            onChange={handleWebTimeChange}
+            style={styles.webTimePicker}
+          />
+        ) : (
+          <TouchableOpacity
+            style={styles.pickerContainer}
+            onPress={() => setShowTimePicker(true)}
+          >
+            <Text style={styles.pickerButtonText}>
+              {selectedTime
+                ? selectedTime.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                : 'Выбрать время'}
+            </Text>
+          </TouchableOpacity>
+        )}
+        {showTimePicker && Platform.OS !== 'web' && (
           <DateTimePicker
-          testID="time-picker"
+            testID="time-picker"
             value={selectedTime || new Date()}
             mode="time"
             display="default"
@@ -143,7 +193,6 @@ const TimePickerScreen = ({ route, navigation }) => {
 };
 
 export default TimePickerScreen;
-
 
 
 

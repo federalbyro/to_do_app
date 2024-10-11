@@ -1,9 +1,9 @@
 // ./screens/TasksScreen.js
 import React, { useState, useEffect, useContext } from 'react';
-import { SafeAreaView, View, KeyboardAvoidingView, FlatList, Text, Platform } from 'react-native';
+import { SafeAreaView, View, KeyboardAvoidingView, FlatList, Text, Platform, Alert } from 'react-native';
 import CustomButton from '../components/CustomButton';
 import TaskInWindow from '../components/task_in_window';
-import styles from '../styles/styles_list_of_task';
+import styles from '../styles/styles_list_of_task'; // Убедитесь, что этот файл содержит нужные стили
 import { MaterialIcons, Feather } from '@expo/vector-icons';
 import { auth } from '../../FireBaseConfig';
 import { saveTasks, loadTasks } from '../firebase/firestore';
@@ -25,15 +25,18 @@ const TasksScreen = ({ navigation }) => {
   const addTaskWindow = () => {
     if (taskWindows.length < 3) {
       const newTaskWindow = {
-        id: Math.random().toString(),
+        id: Math.random().toString(), // Рекомендуется заменить на uuid
         time: 'Выберите время',
         tasks: [],
       };
       const updatedTaskWindows = [...taskWindows, newTaskWindow];
       setTaskWindows(updatedTaskWindows);
-      saveTasks(updatedTaskWindows, auth.currentUser);
+      saveTasks(updatedTaskWindows, auth.currentUser)
+        .catch(error => {
+          Alert.alert('Ошибка', 'Не удалось сохранить окно. Попробуйте снова.');
+        });
     } else {
-      alert('Максимум 3 окна задач! Оплатите, чтобы увеличить лимит.');
+      Alert.alert('Лимит окон', 'Максимум 3 окна задач! Оплатите, чтобы увеличить лимит.');
     }
   };
 
@@ -54,12 +57,15 @@ const TasksScreen = ({ navigation }) => {
           <FlatList
             data={taskWindows}
             renderItem={({ item }) => (
-              <View style={styles.taskWindow}>
+              <View style={styles.taskWindow}> {/* Убедитесь, что marginVertical установлен в стилях.taskWindow */}
                 <TaskInWindow
                   taskWindows={taskWindows}
                   setTaskWindows={(updatedWindows) => {
                     setTaskWindows(updatedWindows);
-                    saveTasks(updatedWindows, auth.currentUser);
+                    saveTasks(updatedWindows, auth.currentUser)
+                      .catch(error => {
+                        Alert.alert('Ошибка', 'Не удалось сохранить задачи. Попробуйте снова.');
+                      });
                   }}
                   windowId={item.id}
                   navigation={navigation}
@@ -72,23 +78,13 @@ const TasksScreen = ({ navigation }) => {
           />
 
           {/* Add New Window Button */}
-          <View style={{ alignItems: 'center', marginBottom: 20 }}>
+          <View style={styles.addButtonContainer}> {/* Используйте addButtonContainer для позиционирования */}
             <CustomButton
               onPress={addTaskWindow}
               text="+"
               gradientColors={['#d13156', '#d13156']}
-              buttonStyle={{
-                width: 60,
-                height: 60,
-                borderRadius: 30,
-                paddingVertical: 0,
-                paddingHorizontal: 0,
-              }}
-              textStyle={{
-                fontSize: 60,
-                color: 'white',
-                lineHeight: 80,
-              }}
+              buttonStyle={styles.addButton} // Используйте отдельный стиль
+              textStyle={styles.addButtonText} // Используйте отдельный стиль
             />
           </View>
         </View>
@@ -120,6 +116,7 @@ const TasksScreen = ({ navigation }) => {
 };
 
 export default TasksScreen;
+
 
 
 

@@ -7,22 +7,22 @@ export default StyleSheet.create({
 
   // Дополнительные стили для списка задач
   taskWindow: {
-    width: '120%', // Уменьшаем ширину окна
-    padding: 10,
-    marginVertical: 5, // Уменьшаем отступы между окнами
-    alignSelf: 'center', // Центрируем окна по горизонтали
-    backgroundColor: 'white',
-    borderRadius: 10,
-    borderWidth: 1,
-    // Тени
+    backgroundColor: 'rgba(211, 211, 211, 0.5)', // Полупрозрачный серый фон
+    borderRadius: 15,
+    padding: 5, // Минимальные отступы между градиентом и контейнером
+    alignSelf: 'center', // Центрируем контейнер по горизонтали
+    width: '90%', // Адаптивная ширина: 60% для больших экранов, 90% для мобильных
+    maxWidth: 800, // Максимальная ширина для очень больших экранов
+    // Тени для глубины
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 2.62,
     elevation: 4,
-},
+    marginVertical: 20,
+  },
   taskWindowList: {
-    width: '100%',
+    width: '120%',
   },
   addButtonText: {
     color: 'white',
@@ -93,15 +93,15 @@ export default StyleSheet.create({
   },
  addButtonContainer: {
     position: 'absolute',
-    bottom: 70, // Увеличиваем отступ от футера
+    bottom: 100, // Увеличиваем отступ от футера
     alignSelf: 'center',
     zIndex: 10, // Убедитесь, что кнопка отображается над другими элементами
 },
 addButton: {
-    width: 80,
-    height: 80,
-    borderRadius: 40, // Делает кнопку круглой
-    paddingVertical: 0,
+    width: 50,
+    height: 50,
+    borderRadius: 30, // Делает кнопку круглой
+    paddingVertical: 15,
     paddingHorizontal: 0,
     justifyContent: 'center',
     alignItems: 'center',
