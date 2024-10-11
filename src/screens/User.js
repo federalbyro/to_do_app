@@ -26,6 +26,7 @@ const UserScreen = ({ navigation }) => {
       }
     };
 
+    
     fetchUserPhoto();
   }, []);
 
