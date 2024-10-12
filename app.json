@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "do_it",
-    "slug": "do_it",
+    "name": "do-it",
+    "slug": "do-it",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,21 +12,45 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "do-it",
+      "supportsTablet": true,
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "com.federal_1488.doit",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.federal_1488.do_it"
+      }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "manifest": {
+        "short_name": "DoIt",
+        "name": "Do It App",
+        "icons": [
+          {
+            "src": "./assets/icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+          },
+          {
+            "src": "./assets/icon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+          }
+        ],
+        "start_url": ".",
+        "background_color": "#ffffff",
+        "display": "standalone",
+        "scope": "/",
+        "theme_color": "#ffffff"
+      }
     },
     "extra": {
       "eas": {
-        "projectId": "dd66e4a7-e6c5-4b15-a005-5119cabadcb8"
+        "projectId": "98609d4f-f492-41cb-ad99-d13d1bd5ca8e"
       }
     }
   }
